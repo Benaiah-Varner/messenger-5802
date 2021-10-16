@@ -5,6 +5,11 @@ const onlineUsers = require("../../onlineUsers");
 
 // get all conversations for a user, include latest message text for preview, and all messages
 // include other user model so we have info on username/profile pic (don't include current user info)
+
+// Ticket 1 continued //
+
+// To find all conversations for a user you would findAll conversations where userIds includes req.user.id
+
 router.get("/", async (req, res, next) => {
   try {
     if (!req.user) {

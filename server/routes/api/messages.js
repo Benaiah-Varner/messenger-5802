@@ -32,6 +32,7 @@ router.post("/", async (req, res, next) => {
         sender.online = true;
       }
     }
+    
     const message = await Message.create({
       senderId,
       text,
