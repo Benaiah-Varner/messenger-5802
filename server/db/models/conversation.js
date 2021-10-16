@@ -21,7 +21,7 @@ const Conversation = db.define("conversation", {
 
 // To accomplish this, I would change user1Id & user2Id to an array of userIds, that concats all conversation participant's id's together sorted alphabetically 
 
-// See conversations.js for rest of explanation
+// We would need to change the findConversation method to find a conversation where { userIds.includes(userId), or chatInitiator.id === userId } 
 
 Conversation.findConversation = async function (user1Id, user2Id) {
   const conversation = await Conversation.findOne({
