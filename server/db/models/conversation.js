@@ -5,15 +5,19 @@ const Sequelize = require("sequelize");
 const User = require('./user')
 
 // Change needed for conversation Model
-const Conversation = db.define("conversation", {
-  userIds: {
-    type: Sequelize.ARRAY,
-    allowNull: false,
-  },
-  chatInitiator: {
-    type: User
-  },
-});
+// The instructions weren't clear on whether or not I needed to actually change the code, so I left this commented out
+
+// const Conversation = db.define("conversation", {
+//   userIds: {
+//     type: Sequelize.ARRAY,
+//     allowNull: false,
+//   },
+//   chatInitiator: {
+//     type: Sequalize.STRING
+//   },
+// });
+
+const Conversation = db.define("conversation", {});
 
 // find conversation given two user Ids
 
