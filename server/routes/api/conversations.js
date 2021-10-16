@@ -12,6 +12,10 @@ const onlineUsers = require("../../onlineUsers");
 
 // We would also need a new route to add users to a conversation, which would be a PUT request that takes a (conversationId) and (newUserId) as parameters. It would take the conversationId and find that conversation, then update that conversations userIds to: [...userIds, newUserId], and return the updated conversation.
 
+
+// I would also build a helper function to find users and include them in the API response for the "/" route. This helper function would take the array of userIds from the conversation as a parameter, loop through them and for each Id find a user where that user's Id equals the userId from the userIds array. You would append each user to an array of users and include it in the API response. I would then replace lines 34-58 to include this array of users.
+
+
 router.get("/", async (req, res, next) => {
   try {
     if (!req.user) {
