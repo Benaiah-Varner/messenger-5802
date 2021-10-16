@@ -22,6 +22,7 @@ router.post("/", async (req, res, next) => {
       recipientId
     );
 
+    // For groupchats (ticket 1), this would need to change to: chatInitiator: senderId, userIds: [recipientId].
     if (!conversation) {
       // create conversation
       conversation = await Conversation.create({
@@ -32,7 +33,7 @@ router.post("/", async (req, res, next) => {
         sender.online = true;
       }
     }
-    
+
     const message = await Message.create({
       senderId,
       text,

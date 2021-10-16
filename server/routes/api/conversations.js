@@ -8,7 +8,9 @@ const onlineUsers = require("../../onlineUsers");
 
 // Ticket 1 continued //
 
-// To find all conversations for a user you would findAll conversations where userIds includes req.user.id
+// To find all conversations for a user you would findAll conversations where userIds conversation property includes req.user.id
+
+// We would also need a new route to add users to a conversation, which would be a PUT request that takes a (conversationId) and (newUserId) as parameters. It would take the conversationId and find that conversation, then update that conversations userIds to: [...userIds, newUserId], and return the updated conversation.
 
 router.get("/", async (req, res, next) => {
   try {
