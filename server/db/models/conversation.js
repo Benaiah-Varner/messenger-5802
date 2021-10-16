@@ -21,7 +21,7 @@ const Conversation = db.define("conversation", {});
 
 // find conversation given two user Ids
 
-// ***** TICKET 1: Allow more than just two users to be in a conversation at once ***** //
+// ***** TICKET 3: Allow more than just two users to be in a conversation at once ***** //
 
 // To accomplish this, I would change user1Id & user2Id to an array of userIds, that concats all conversation participant's id's together sorted alphabetically 
 
