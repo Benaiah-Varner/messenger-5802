@@ -17,13 +17,11 @@ router.post("/", async (req, res, next) => {
       return res.json({ message, sender });
     }
     // if we don't have conversation id, find a conversation to make sure it doesn't already exist
-    // For ticket 3: change this to: await Conversation.findConversation(senderId)
     let conversation = await Conversation.findConversation(
       senderId,
       recipientId
     );
 
-    // For groupchats (ticket 3), this would need to change to: chatInitiator: senderId, userIds: [recipientId].
     if (!conversation) {
       // create conversation
       conversation = await Conversation.create({
