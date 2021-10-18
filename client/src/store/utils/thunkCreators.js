@@ -80,7 +80,6 @@ export const fetchConversations = () => async (dispatch) => {
         messages: convo.messages.sort((a, b) => {
           return new Date(a.createdAt) - new Date(b.createdAt)
         }),
-        unreadMessages: convo.messages.filter((mes) => !mes.read && mes.senderId === convo.otherUser.id)
       }
       conversations.push(sortedData)
       return null;
@@ -104,20 +103,6 @@ const sendMessage = (data, body) => {
   });
 };
 
-export const readMessage = async (body) => {
-  // reads messages given an array of message ids
-  try {
-    const ids = []
-    body?.map((mes) => {
-      ids.push(mes.id)
-      return null;
-    })
-    const { data } = await axios.put("/api/messages/read", { ids })
-    return data;
-  } catch (error) {
-    console.error('error in readMessage ', error)
-  }
-}
 // message format to send: {recipientId, text, conversationId}
 // conversationId will be set to null if its a brand new conversation
 export const postMessage = (body) => async (dispatch) => {
