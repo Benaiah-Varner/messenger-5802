@@ -10,7 +10,6 @@ import {
 
 const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 const SET_MESSAGE = "SET_MESSAGE";
-const SET_UNREAD_MESSAGES = "SET_UNREAD_MESSAGES";
 const ADD_ONLINE_USER = "ADD_ONLINE_USER";
 const REMOVE_OFFLINE_USER = "REMOVE_OFFLINE_USER";
 const SET_SEARCHED_USERS = "SET_SEARCHED_USERS";
@@ -25,13 +24,6 @@ export const gotConversations = (conversations) => {
     conversations,
   };
 };
-
-export const setUnreadMessages = (conversations) => {
-  return {
-    type: SET_UNREAD_MESSAGES,
-    conversations
-  }
-}
 
 export const setNewMessage = (message, sender) => {
   return {
