@@ -72,7 +72,20 @@ export const logout = (id) => async (dispatch) => {
 export const fetchConversations = () => async (dispatch) => {
   try {
     const { data } = await axios.get("/api/conversations");
-    dispatch(gotConversations(data));
+    //sort the conversation messages by time, and also sets array of unreadMessages
+    const conversations = []
+    data.map((convo) => {
+      const sortedData = {
+        ...convo,
+        messages: convo.messages.sort((a, b) => {
+          return new Date(a.createdAt) - new Date(b.createdAt)
+        }),
+        unreadMessages: convo.messages.filter((mes) => !mes.read && mes.senderId === convo.otherUser.id)
+      }
+      conversations.push(sortedData)
+      return null;
+    })
+    dispatch(gotConversations(conversations));
   } catch (error) {
     console.error(error);
   }
@@ -91,11 +104,25 @@ const sendMessage = (data, body) => {
   });
 };
 
+export const readMessage = async (body) => {
+  // reads messages given an array of message ids
+  try {
+    const ids = []
+    body?.map((mes) => {
+      ids.push(mes.id)
+      return null;
+    })
+    const { data } = await axios.put("/api/messages/read", { ids })
+    return data;
+  } catch (error) {
+    console.error('error in readMessage ', error)
+  }
+}
 // message format to send: {recipientId, text, conversationId}
 // conversationId will be set to null if its a brand new conversation
-export const postMessage = (body) => (dispatch) => {
+export const postMessage = (body) => async (dispatch) => {
   try {
-    const data = saveMessage(body);
+    const data = await saveMessage(body);
 
     if (!body.conversationId) {
       dispatch(addConversation(body.recipientId, data.message));
