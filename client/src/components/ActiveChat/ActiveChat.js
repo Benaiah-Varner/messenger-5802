@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { Input, Header, Messages } from "./index";
 import { connect } from "react-redux";
-import { readMessage } from "../../store/utils/thunkCreators";
+
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
