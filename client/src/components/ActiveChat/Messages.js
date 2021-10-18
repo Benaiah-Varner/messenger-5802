@@ -13,7 +13,7 @@ const Messages = (props) => {
   useEffect(() => {
     // sets unread messages to read each time a chat gets selected.
     async function readData() {
-      if (conversation.unreadMessages.length > 0) {
+      if (conversation.unreadMessages && conversation.unreadMessages.length > 0) {
         await readMessage(conversation.unreadMessages)
         fetchConversations()
       }
