@@ -1,25 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React from "react";
 import { Box } from "@material-ui/core";
-import { connect } from "react-redux";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
-import { fetchConversations } from "../../store/utils/thunkCreators";
-import { readMessage } from "../../store/utils/thunkCreators";
 import moment from "moment";
 
 const Messages = (props) => {
-  const { messages, otherUser, userId, conversation, fetchConversations, activeChat } = props;
-
-  useEffect(() => {
-    // sets unread messages to read each time a chat gets selected.
-    async function readData() {
-      if (conversation.unreadMessages && conversation.unreadMessages.length > 0) {
-        await readMessage(conversation.unreadMessages)
-        fetchConversations()
-      }
-    }
-    readData()
-  }, [activeChat])
+  const { messages, otherUser, userId } = props;
 
   return (
     <Box>
@@ -36,12 +21,4 @@ const Messages = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchConversations: () => {
-      dispatch(fetchConversations());
-    }
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Messages);
+export default Messages;
