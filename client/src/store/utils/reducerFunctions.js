@@ -13,9 +13,12 @@ export const addMessageToStore = (state, payload) => {
 
   return state.map((convo) => {
     if (convo.id === message.conversationId) {
-      convo.messages.push(message);
-      convo.latestMessageText = message.text;
-      return convo;
+      // BUG FIX //
+      // the issue was we were returning the same state just modified, so react wasn't re-rendering and giving us instant UI updates. To solve I needed to create a copy of state with the necessary changes and return this copy of state instead.
+      const convoCopy = { ...convo };
+      convoCopy.messages.push(message);
+      convoCopy.latestMessageText = message.text;
+      return convoCopy;
     } else {
       return convo;
     }
@@ -72,7 +75,8 @@ export const addNewConvoToStore = (state, recipientId, message) => {
       convo.id = message.conversationId;
       convo.messages.push(message);
       convo.latestMessageText = message.text;
-      return convo;
+      // same issue here as above, needed to return a copy of the convo instead of the original convo to get instant UI updates.
+      return { ...convo };
     } else {
       return convo;
     }
