@@ -73,17 +73,12 @@ export const fetchConversations = () => async (dispatch) => {
   try {
     const { data } = await axios.get("/api/conversations");
     //sort the conversation messages by time, and also sets array of unreadMessages
-    const conversations = []
-    data.map((convo) => {
-      const sortedData = {
-        ...convo,
-        messages: convo.messages.sort((a, b) => {
-          return new Date(a.createdAt) - new Date(b.createdAt)
-        }),
-      }
-      conversations.push(sortedData)
-      return null;
-    })
+    const conversations = data.map((convo) => ({
+      ...convo,
+      messages: convo.messages.sort((a, b) =>
+        new Date(a.createdAt) - new Date(b.createdAt)
+      ),
+    }))
     dispatch(gotConversations(conversations));
   } catch (error) {
     console.error(error);
@@ -106,8 +101,8 @@ const sendMessage = (data, body) => {
 export const readMessage = async (body) => {
   // reads messages given an array of message ids
   try {
-    const ids = []
-    body?.map((mes) => {
+
+    const ids = body?.map((mes) => {
       ids.push(mes.id)
       return null;
     })
