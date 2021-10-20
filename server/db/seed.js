@@ -23,10 +23,12 @@ async function seed() {
       "https://res.cloudinary.com/dmlvthmqr/image/upload/v1607914466/messenger/775db5e79c5294846949f1f55059b53317f51e30_s3back.png",
   });
 
+  // change this to: chatInitiator: thomas.id, userIds: [santiago.id]
   const santaigoConvo = await Conversation.create({
     user1Id: thomas.id,
     user2Id: santiago.id,
   });
+
 
   await Message.create({
     conversationId: santaigoConvo.id,
@@ -51,6 +53,8 @@ async function seed() {
     photoUrl:
       "https://res.cloudinary.com/dmlvthmqr/image/upload/v1607914468/messenger/8bc2e13b8ab74765fd57f0880f318eed1c3fb001_fownwt.png",
   });
+
+  // change this to: chatInitiator: chiumbo.id, userIds: [thomas.id]
   const chiumboConvo = await Conversation.create({
     user1Id: chiumbo.id,
     user2Id: thomas.id,
@@ -68,6 +72,8 @@ async function seed() {
     photoUrl:
       "https://res.cloudinary.com/dmlvthmqr/image/upload/v1607914466/messenger/6c4faa7d65bc24221c3d369a8889928158daede4_vk5tyg.png",
   });
+
+  // change this to: chatInitiator: hualing.id, userIds: [thomas.id]
   const hualingConvo = await Conversation.create({
     user2Id: hualing.id,
     user1Id: thomas.id,

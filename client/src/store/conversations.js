@@ -61,6 +61,7 @@ export const clearSearchedUsers = () => {
 
 // add new conversation when sending a new message
 export const addConversation = (recipientId, newMessage) => {
+  //change this to entire recipient object, not just Id
   return {
     type: ADD_CONVERSATION,
     payload: { recipientId, newMessage },

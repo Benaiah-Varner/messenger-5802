@@ -5,6 +5,13 @@ const onlineUsers = require("../../onlineUsers");
 
 // get all conversations for a user, include latest message text for preview, and all messages
 // include other user model so we have info on username/profile pic (don't include current user info)
+
+// Ticket 3 continued //
+
+// To find all conversations for a user you would findAll conversations where userIds conversation property includes key req.user.id
+
+// We would also need a new route to add users to a conversation, which would be a PUT request that takes a (conversationId) and (newUser) as parameters. It would take the conversationId and find that conversation, then update that conversations userIds to: userIds.newUser.id === newUser, and return the updated conversation.
+
 router.get("/", async (req, res, next) => {
   try {
     if (!req.user) {

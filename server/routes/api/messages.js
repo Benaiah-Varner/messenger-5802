@@ -9,6 +9,7 @@ router.post("/", async (req, res, next) => {
       return res.sendStatus(401);
     }
     const senderId = req.user.id;
+    // For groupchats (ticket 3), this would need to change to: const { recipient, text, conversationId, sender } = req.body;, to include the entire recipient object
     const { recipientId, text, conversationId, sender } = req.body;
 
     // if we already know conversation id, we can save time and just add it to message and return
@@ -17,13 +18,15 @@ router.post("/", async (req, res, next) => {
       return res.json({ message, sender });
     }
     // if we don't have conversation id, find a conversation to make sure it doesn't already exist
+    // For ticket 3: change this to: await Conversation.findConversation(conversationId)
     let conversation = await Conversation.findConversation(
       senderId,
       recipientId
     );
-
+    // conversationId will need to be required, if not there is no way to find a single conversation given Id is the only quarenteed unique field
     if (!conversation) {
       // create conversation
+      // For groupchats (ticket 3), this would need to change to: userIds: {recipient.id: recipient}.
       conversation = await Conversation.create({
         user1Id: senderId,
         user2Id: recipientId,
@@ -32,6 +35,7 @@ router.post("/", async (req, res, next) => {
         sender.online = true;
       }
     }
+
     const message = await Message.create({
       senderId,
       text,
