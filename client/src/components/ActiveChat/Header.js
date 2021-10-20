@@ -49,6 +49,8 @@ const Header = (props) => {
   const classes = useStyles();
   const { username, online } = props;
 
+  // Add a plus icon to this component, to add new users.
+
   return (
     <Box className={classes.root}>
       <Box className={classes.content}>

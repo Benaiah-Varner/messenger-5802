@@ -98,6 +98,7 @@ export const postMessage = (body) => (dispatch) => {
     const data = saveMessage(body);
 
     if (!body.conversationId) {
+      // change this to body.recipient
       dispatch(addConversation(body.recipientId, data.message));
     } else {
       dispatch(setNewMessage(data.message));

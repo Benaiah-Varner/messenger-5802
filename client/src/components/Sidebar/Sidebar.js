@@ -29,6 +29,7 @@ const Sidebar = (props) => {
       <CurrentUser />
       <Typography className={classes.title}>Chats</Typography>
       <Search handleChange={handleChange} />
+      {/* Seperate this out into a seperate component, to re-use for adding new users to a groupchat. It would also need to be changed to conversation.otherUser.username.includes(searchTerm) || conversation.convoName.includes(searchTerm)  */}
       {conversations
         .filter((conversation) => conversation.otherUser.username.includes(searchTerm))
         .map((conversation) => {
