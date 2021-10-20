@@ -102,10 +102,7 @@ export const readMessage = async (body) => {
   // reads messages given an array of message ids
   try {
 
-    const ids = body?.map((mes) => {
-      ids.push(mes.id)
-      return null;
-    })
+    const ids = body?.map((mes) => (mes.id))
     const { data } = await axios.put("/api/messages/read", { ids })
     return data;
   } catch (error) {
