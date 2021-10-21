@@ -25,7 +25,7 @@ const Chat = (props) => {
   const classes = useStyles();
   const { conversation } = props;
   const { otherUser } = conversation;
-  const unreadMessages = conversation.unreadMessages && conversation.unreadMessages.length
+  const unreadMessages = conversation.unreadMessages?.length ?? 0;
 
   const handleClick = async (conversation) => {
     await props.setActiveChat(conversation.otherUser.username);

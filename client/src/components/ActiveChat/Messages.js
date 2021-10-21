@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { Box } from "@material-ui/core";
 import { connect } from "react-redux";
@@ -13,7 +12,7 @@ const Messages = (props) => {
   useEffect(() => {
     // sets unread messages to read each time a chat gets selected.
     async function readData() {
-      if (conversation.unreadMessages && conversation.unreadMessages.length > 0) {
+      if (conversation.unreadMessages?.length > 0) {
         await readMessage(conversation.unreadMessages)
         fetchConversations()
       }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
-
+import { Badge } from '@material-ui/core'
 const useStyles = makeStyles(theme => ({
     count: {
         marginRight: 17,
@@ -16,11 +16,11 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const UnreadMessages = ({ count }) => {
-    const classes = useStyles()
+    const classes = useStyles();
     return (
-        <div className={classes.count}>
+        <Badge className={classes.count}>
             {count}
-        </div>
+        </Badge>
     )
 }
 
