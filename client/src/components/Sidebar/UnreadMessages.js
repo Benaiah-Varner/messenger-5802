@@ -11,7 +11,9 @@ const useStyles = makeStyles(theme => ({
         height: '25px',
         minWidth: '25px',
         width: 'auto',
-        textAlign: 'center'
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 }))
 

@@ -9,7 +9,7 @@ router.post("/", async (req, res, next) => {
       return res.sendStatus(401);
     }
     const senderId = req.user.id;
-    const { recipientId, text, conversationId, senderId } = req.body;
+    const { recipientId, text, conversationId, sender } = req.body;
 
     // if we already know conversation id, we can save time and just add it to message and return
     if (conversationId) {
@@ -37,7 +37,7 @@ router.post("/", async (req, res, next) => {
       senderId,
       text,
       conversationId: conversation.id,
-      read: false,
+      read: false
     });
     res.json({ message, sender });
   } catch (error) {
@@ -51,7 +51,7 @@ router.put("/read", async (req, res, next) => {
     if (!req.user) {
       return res.sendStatus(401);
     }
-    const data = await Message.update({ read: true }, {where: { id: ids }})
+    const data = await Message.update({ read: true }, { where: { id: ids } })
     res.json({ data });
   } catch (error) {
     next(error);

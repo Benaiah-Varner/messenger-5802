@@ -4,10 +4,11 @@ import { Box, Badge, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
-  profilePic: {
-    height: 44,
-    width: 44
-  },
+  profilePic: ({ chatReadAvatar }) => ({
+    height: chatReadAvatar ? 31 : 44,
+    width: chatReadAvatar ? 31 : 44,
+    marginTop: chatReadAvatar && '11px' 
+  }),
   badge: {
     height: 13,
     width: 13,
@@ -20,12 +21,12 @@ const useStyles = makeStyles(() => ({
   },
   sidebar: {
     marginLeft: 17
-  }
+  },
 }));
 
 const UserAvatar = (props) => {
-  const classes = useStyles();
-  const { sidebar, username, photoUrl, online } = props;
+  const { sidebar, username, photoUrl, online, chatReadAvatar } = props;
+  const classes = useStyles({ chatReadAvatar });
 
   return (
     <Box className={sidebar ? classes.sidebar : ""}>
