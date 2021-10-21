@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { Box } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
+import { connect } from "react-redux";
+import { readMessage } from "../../store/utils/thunkCreators";
 import { BadgeAvatar } from "../Sidebar";
 import { makeStyles } from "@material-ui/core";
-import { readMessage } from "../../store/utils/thunkCreators";
 
 const useStyles = makeStyles((theme) => ({
   avatarBox: {
@@ -14,20 +15,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Messages = (props) => {
   const classes = useStyles()
-  const { messages, otherUser, userId, conversation, fetchConversations, activeChat } = props;
+  const { messages, otherUser, userId, conversation, readMessage } = props;
   const readMessages = messages.filter((mes) => mes.read === true && mes.senderId === userId);
   const lastReadMessage = readMessages[readMessages.length - 1];
 
   useEffect(() => {
     // sets unread messages to read each time a chat gets selected.
-    async function readData() {
-      if (conversation.unreadMessages?.length > 0) {
-        await readMessage(conversation.unreadMessages)
-        fetchConversations()
-      }
+    if (conversation.unreadMessages?.length > 0) {
+      readMessage({ ids: conversation.unreadMessages.map((mes) => (mes.id)), conversationId: conversation.id })
     }
-    readData()
-  }, [activeChat])
+  }, [messages])
 
   return (
     <Box>
@@ -35,10 +32,10 @@ const Messages = (props) => {
         const time = moment(message.createdAt).format("h:mm");
 
         return message.senderId === userId ? (
-          <Box key={message.id} className={classes.avatarBox}> 
+          <Box key={message.id} className={classes.avatarBox}>
             <SenderBubble text={message.text} time={time} />
             {
-              lastReadMessage.id === message.id &&
+              lastReadMessage?.id === message.id &&
               <BadgeAvatar
                 photoUrl={otherUser.photoUrl}
                 username={otherUser.username}
@@ -56,4 +53,12 @@ const Messages = (props) => {
   );
 };
 
-export default Messages;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    readMessage: (body) => {
+      dispatch(readMessage(body));
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Messages);

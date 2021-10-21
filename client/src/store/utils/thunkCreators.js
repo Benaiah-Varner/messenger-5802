@@ -5,6 +5,7 @@ import {
   addConversation,
   setNewMessage,
   setSearchedUsers,
+  setUnreadMessages
 } from "../conversations";
 import { gotUser, setFetchingStatus } from "../user";
 
@@ -105,17 +106,17 @@ const sendMessage = (data, body) => {
   });
 };
 
-export const readMessage = async (body) => {
+export const readMessage = (body) => async (dispatch) => {
   // reads messages given an array of message ids
   try {
-    const ids = body?.map((mes) => (mes.id))
-
-    const { data } = await axios.put("/api/messages/read", { ids })
+    const { data } = await axios.put("/api/messages/read", { ids: body.ids })
+    dispatch(setUnreadMessages(body.conversationId))
     return data;
   } catch (error) {
     console.error('error in readMessage ', error)
   }
 }
+
 // message format to send: {recipientId, text, conversationId}
 // conversationId will be set to null if its a brand new conversation
 export const postMessage = (body) => async (dispatch) => {
