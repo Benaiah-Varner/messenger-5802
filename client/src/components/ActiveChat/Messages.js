@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { Box } from "@material-ui/core";
-import { connect } from "react-redux";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
-import { fetchConversations } from "../../store/utils/thunkCreators";
-import { readMessage } from "../../store/utils/thunkCreators";
 import moment from "moment";
 import { BadgeAvatar } from "../Sidebar";
 import { makeStyles } from "@material-ui/core";
+import { readMessage } from "../../store/utils/thunkCreators";
 
 const useStyles = makeStyles((theme) => ({
   avatarBox: {
@@ -58,12 +56,4 @@ const Messages = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchConversations: () => {
-      dispatch(fetchConversations());
-    }
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Messages);
+export default Messages;
