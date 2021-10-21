@@ -72,7 +72,7 @@ export const logout = (id) => async (dispatch) => {
 export const fetchConversations = () => async (dispatch) => {
   try {
     const { data } = await axios.get("/api/conversations");
-    //sort the conversation messages by time, and also sets array of unreadMessages
+    //sort the conversation messages by time
     const conversations = data.map((convo) => ({
       ...convo,
       messages: convo.messages.sort((a, b) =>
@@ -98,20 +98,6 @@ const sendMessage = (data, body) => {
   });
 };
 
-export const readMessage = async (body) => {
-  // reads messages given an array of message ids
-  try {
-
-    const ids = body?.map((mes) => {
-      ids.push(mes.id)
-      return null;
-    })
-    const { data } = await axios.put("/api/messages/read", { ids })
-    return data;
-  } catch (error) {
-    console.error('error in readMessage ', error)
-  }
-}
 // message format to send: {recipientId, text, conversationId}
 // conversationId will be set to null if its a brand new conversation
 export const postMessage = (body) => async (dispatch) => {
