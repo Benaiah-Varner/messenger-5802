@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
@@ -15,16 +15,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Messages = (props) => {
   const classes = useStyles()
-  const { messages, otherUser, userId, conversation, readMessage } = props;
-  const readMessages = messages.filter((mes) => mes.read === true && mes.senderId === userId);
+  const { messages, otherUser, userId, conversation, readMessage, activeChat } = props;
+  const [readMessages, setReadMessages] = useState(messages.filter((mes) => mes.read === true && mes.senderId === userId));
   const lastReadMessage = readMessages[readMessages.length - 1];
 
   useEffect(() => {
     // sets unread messages to read each time a chat gets selected.
     if (conversation.unreadMessages?.length > 0) {
+      setReadMessages(messages.filter((mes) => mes.senderId === userId))
       readMessage({ ids: conversation.unreadMessages.map((mes) => (mes.id)), conversationId: conversation.id })
     }
-  }, [messages])
+  }, [conversation.unreadMessages, activeChat])
 
   return (
     <Box>
@@ -57,7 +58,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     readMessage: (body) => {
       dispatch(readMessage(body));
-    }
+    },
   };
 };
 

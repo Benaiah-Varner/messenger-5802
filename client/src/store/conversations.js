@@ -4,7 +4,7 @@ import {
   addSearchedUsersToStore,
   removeOfflineUserFromStore,
   addMessageToStore,
-  clearUnreadMessages
+  clearUnreadMessages,
 } from "./utils/reducerFunctions";
 
 // ACTIONS
@@ -16,7 +16,8 @@ const REMOVE_OFFLINE_USER = "REMOVE_OFFLINE_USER";
 const SET_SEARCHED_USERS = "SET_SEARCHED_USERS";
 const CLEAR_SEARCHED_USERS = "CLEAR_SEARCHED_USERS";
 const ADD_CONVERSATION = "ADD_CONVERSATION";
-const CLEAR_UNREAD_MESSAGES = "CLEAR_UNREAD_MESSAGES"
+const CLEAR_UNREAD_MESSAGES = "CLEAR_UNREAD_MESSAGES";
+const SET_READ_MESSAGES = "SET_READ_MESSAGES";
 
 // ACTION CREATORS
 

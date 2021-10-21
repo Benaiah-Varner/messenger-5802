@@ -5,7 +5,7 @@ import {
   addConversation,
   setNewMessage,
   setSearchedUsers,
-  setUnreadMessages
+  setUnreadMessages,
 } from "../conversations";
 import { gotUser, setFetchingStatus } from "../user";
 
